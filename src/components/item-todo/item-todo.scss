@@ -1,0 +1,11 @@
+.todo__list {
+    &__item {
+        &_label {
+            margin: 0 5px;
+        }
+        &_remove {
+            margin: 0 5px;
+            cursor: pointer;
+        }
+    }
+}
