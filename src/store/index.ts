@@ -1,6 +1,7 @@
 
-import {applyMiddleware, compose, createStore } from 'redux';
-import ReduxThunk from 'redux-thunk'
+import { applyMiddleware, compose, createStore } from 'redux';
+import { createLogger } from 'redux-logger';
+import thunk from 'redux-thunk'
 import rootReducer from '../reducers/index';
 
 import { ITodoStoreState } from '../reducers/todo';
@@ -10,24 +11,26 @@ export interface IStore {
     todo: ITodoStoreState
 }
 
-let composeEnhancers = compose;
-const middlewares = [
-    //logger,
-    ReduxThunk
-];
-
-if ((window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
-    composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
-}
-
 const configureStore = (initialState?: IStore) => {
-    return createStore(
+    const logger = createLogger();
+    const middlewares = [
+        logger,
+        thunk
+    ];
+    const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+    console.log(initialState);
+
+    const store = createStore(
         rootReducer,
         initialState,
         composeEnhancers(
-            applyMiddleware(...middlewares)
+            applyMiddleware(...middlewares),
+           // (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : (fn: any) => fn
         )
     )
+
+    return store;
 };
 
 export default configureStore;

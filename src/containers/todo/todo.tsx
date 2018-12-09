@@ -1,28 +1,42 @@
 import * as React from 'react';
 
-import { TodoComponent } from '../../components/todo';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 
-export interface ITodo {
-    id: number;
-    label: string;
+import { ITodoAction } from 'src/actions';
+import { TodoComponent } from 'src/components/todo';
+import { getTodos } from 'src/reducers/selectors';
+import { ITodo } from 'src/reducers/todo';
+import { IStore } from 'src/store';
+
+export interface ITodoContainerProps {
+    todos?: ITodo[]
 }
 
-export default class TodoContainer extends React.Component<{}, {}> {
+export interface ITodoContainerState {
+    readonly value:string
+}
+
+
+export class TodoContainer extends React.Component<ITodoContainerProps, ITodoContainerState> {
     public render() {
-        
-        const list: ITodo[] = [
-            {
-                id: 1,
-                label: "One action"
-            },
-            {
-                id: 2,
-                label: "Two action"
-            }
-        ]
+        const { todos } = this.props;
 
         return (
-            <TodoComponent list={list} />
+           todos ?
+            <TodoComponent list={todos} />
+            : null
         )
     }
 }
+
+const mapStateToProps = (state: IStore) => ({
+    todos: getTodos(state)
+});
+
+const mapDispatchToProps = (dispatch: Dispatch<ITodoAction>) => ({
+
+})
+
+
+export default connect<{}, {}, ITodoContainerProps>(mapStateToProps, mapDispatchToProps)(TodoContainer);

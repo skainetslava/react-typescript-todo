@@ -1,19 +1,24 @@
 import * as React from 'react';
 
-import { ITodo } from '../../containers/todo/todo';
+import { Input } from 'src/components/input';
+import { ITodo } from 'src/reducers/todo';
 import { ListTodo } from '../list-todo';
 
+import './todo.scss';
 
-interface ITodoContainerProps {
+
+interface ITodoComponentProps {
     list: ITodo[]
 }
 
-export const TodoContainer: React.SFC<ITodoContainerProps> = ({ list }) => {
+export const TodoComponent: React.SFC<ITodoComponentProps> = (props) => {
     return (
         <div className="todo">
-            <ListTodo list={list} />
+            <h1>todos</h1>
+            <Input value="sdsdsd" />
+            <ListTodo {...props} />
         </div>
     )
 }
 
-export default TodoContainer;
+export default TodoComponent;

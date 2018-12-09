@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import './item-todo.scss';
+import './item-todo.scss';  
 
 export interface IItemTodo {
     id: number,
@@ -9,10 +9,10 @@ export interface IItemTodo {
 
 const ItemTodo: React.SFC<IItemTodo> = ({ id, label }) => {
     return (
-        <li className="todo__list__item">
+        <div className="todo__list__item">
             <span className="todo__list__item_label">{label}</span>
             <span className="todo__list__item_remove">X</span>
-        </li>
+        </div>
     );
 }
 

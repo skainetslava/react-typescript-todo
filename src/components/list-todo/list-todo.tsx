@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { ITodo } from '../../containers/todo/todo';
+import { ITodo } from 'src/reducers/todo';
 import { ItemTodo } from '../item-todo';
 
 import './list-todo.scss';
@@ -9,15 +9,15 @@ interface IListTodoProps {
     list: ITodo[]
 }
 
-const ListTodo: React.SFC<IListTodoProps> = ({ list }) => {
+export const ListTodo: React.SFC<IListTodoProps> = ({ list }) => {
     return (
-        <ul className="todo__list">
+        <section className="todo__list">
             {
-                list.map((item: ITodo) => {
+                list && list.length > 0 && list.map((item: ITodo) => {
                     return <ItemTodo key={item.id} id={item.id} label={item.label} />
                 })
             }
-        </ul>
+        </section>
     );
 };
 
