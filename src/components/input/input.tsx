@@ -3,7 +3,7 @@ import * as React from 'react';
 import './input.scss';
 
 
-interface ICallbackObject {
+export interface ICallbackObject {
     value: string
 }
 
@@ -11,8 +11,8 @@ interface IInputProps {
     value: string,
     placeholder?: string,
     disabled?: boolean,
-    onChange?(result: object): ICallbackObject,
-    onEnter?(result: object): ICallbackObject
+    onChange?:(result: object) => void,
+    onEnter?:() => void
 }
 
 
@@ -28,7 +28,7 @@ const Input: React.SFC<IInputProps> = ({ value, placeholder, disabled, onChange,
     }
 
     const handleOnEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        return onEnter && onEnter({ value: event.currentTarget.value });
+        return onEnter && onEnter();
     }
     return <input
         className="todo-input"

@@ -9,7 +9,7 @@ export interface ITodoStoreState {
     todos: ITodo[]
 }
 
-const initialState:ITodoStoreState = {
+const initialState: ITodoStoreState = {
     todos: [
         {
             id: 1,
@@ -23,8 +23,20 @@ const initialState:ITodoStoreState = {
 }
 
 
-export default function todoReducer(state: ITodoStoreState = initialState, action:ITodoAction): ITodoStoreState {
+export default function todoReducer(state: ITodoStoreState = initialState, action: ITodoAction): ITodoStoreState {
     switch (action.type) {
+        case "ADD_ITEM":
+            const newItem: ITodo = {
+                id: state.todos.length, 
+                label: action.payload.value 
+            }
+            return {
+                ...state,
+                todos: [
+                    ...state.todos, 
+                    newItem
+                ]
+            }
         default:
             return state;
     }
